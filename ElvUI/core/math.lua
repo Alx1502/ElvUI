@@ -1,18 +1,17 @@
 local E, L, V, P, G = unpack(ElvUI)
 
-local select, unpack, assert, tonumber, type, pairs = select, unpack, assert, tonumber, type, pairs
-local tinsert, tremove = tinsert, tremove
+local select, unpack, assert, tonumber, type = select, unpack, assert, tonumber, type
 local abs, ceil, floor, modf, mod = math.abs, math.ceil, math.floor, math.modf, mod
-local format, sub, upper, split, utf8sub = string.format, string.sub, string.upper, string.split, string.utf8sub
+local format, strfind, strsub, strupper, gsub, gmatch, utf8sub = format, strfind, strsub, strupper, gsub, gmatch, string.utf8sub
+local tinsert, tremove = tinsert, tremove
 
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local CreateFrame = CreateFrame
 
 --Return short value of a number
-local shortValueDec, value
 function E:ShortValue(v)
-	shortValueDec = format("%%.%df", E.db.general.decimalLength or 1)
-	value = abs(v)
+	local shortValueDec = format("%%.%df", E.db.general.decimalLength or 1)
+	local value = abs(v)
 	if E.db.general.numberPrefixStyle == "METRIC" then
 		if value >= 1e12 then
 			return format(shortValueDec.."T", v / 1e12)
@@ -85,7 +84,7 @@ function E:ColorGradient(perc, ...)
 	local segment, relperc = modf(perc*(num - 1))
 	local r1, g1, b1, r2, g2, b2 = select((segment*3) + 1, ...)
 
-	return r1 + (r2-r1)*relperc, g1 + (g2-g1)*relperc, b1 + (b2-b1)*relperc
+	return r1 + (r2 - r1)*relperc, g1 + (g2 - g1)*relperc, b1 + (b2 - b1)*relperc
 end
 
 function E:Round(num, idp)
@@ -108,7 +107,7 @@ function E:RGBToHex(r, g, b)
 end
 
 function E:HexToRGB(hex)
-	local rhex, ghex, bhex = sub(hex, 1, 2), sub(hex, 3, 4), sub(hex, 5, 6)
+	local rhex, ghex, bhex = strsub(hex, 1, 2), strsub(hex, 3, 4), strsub(hex, 5, 6)
 	return tonumber(rhex, 16), tonumber(ghex, 16), tonumber(bhex, 16)
 end
 
@@ -118,23 +117,12 @@ function E:FramesOverlap(frameA, frameB)
 	local sA, sB = frameA:GetEffectiveScale(), frameB:GetEffectiveScale()
 	if not sA or not sB then return end
 
-	local frameALeft = frameA:GetLeft()
-	local frameARight = frameA:GetRight()
-	local frameABottom = frameA:GetBottom()
-	local frameATop = frameA:GetTop()
+	local frameALeft, frameARight, frameABottom, frameATop = frameA:GetLeft(), frameA:GetRight(), frameA:GetBottom(), frameA:GetTop()
+	local frameBLeft, frameBRight, frameBBottom, frameBTop = frameB:GetLeft(), frameB:GetRight(), frameB:GetBottom(), frameB:GetTop()
+	if not (frameALeft and frameARight and frameABottom and frameATop) then return end
+	if not (frameBLeft and frameBRight and frameBBottom and frameBTop) then return end
 
-	local frameBLeft = frameB:GetLeft()
-	local frameBRight = frameB:GetRight()
-	local frameBBottom = frameB:GetBottom()
-	local frameBTop = frameB:GetTop()
-
-	if not frameALeft or not frameARight or not frameABottom or not frameATop then return end
-	if not frameBLeft or not frameBRight or not frameBBottom or not frameBTop then return end
-
-	return ((frameALeft*sA) < (frameBRight*sB))
-		and ((frameBLeft*sB) < (frameARight*sA))
-		and ((frameABottom*sA) < (frameBTop*sB))
-		and ((frameBBottom*sB) < (frameATop*sA))
+	return ((frameALeft*sA) < (frameBRight*sB)) and ((frameBLeft*sB) < (frameARight*sA)) and ((frameABottom*sA) < (frameBTop*sB)) and ((frameBBottom*sB) < (frameATop*sA))
 end
 
 function E:GetScreenQuadrant(frame)
@@ -195,7 +183,7 @@ function E:GetXYOffset(position, override)
 	end
 end
 
-local styles = {
+local gftStyles = {
 	-- keep percents in this table with `PERCENT` in the key, and `%.1f%%` in the value somewhere.
 	-- we use these two things to follow our setting for decimal length. they need to be EXACT.
 	["CURRENT"] = "%s",
@@ -206,28 +194,28 @@ local styles = {
 	["DEFICIT"] = "-%s"
 }
 
-local gftDec, gftUseStyle, gftDeficit
 function E:GetFormattedText(style, min, max)
-	assert(styles[style], "Invalid format style: "..style)
+	assert(gftStyles[style], "Invalid format style: "..style)
 	assert(min, "You need to provide a current value. Usage: E:GetFormattedText(style, min, max)")
 	assert(max, "You need to provide a maximum value. Usage: E:GetFormattedText(style, min, max)")
 
 	if max == 0 then max = 1 end
 
-	gftDec = (E.db.general.decimalLength or 1)
-	if (gftDec ~= 1) and style:find("PERCENT") then
-		gftUseStyle = styles[style]:gsub("%%%.1f%%%%", "%%."..gftDec.."f%%%%")
+	local gftUseStyle
+	local gftDec = E.db.general.decimalLength or 1
+	if (gftDec ~= 1) and strfind(style, "PERCENT") then
+		gftUseStyle = gsub(gftStyles[style], "%%%.1f%%%%", "%%."..gftDec.."f%%%%")
 	else
-		gftUseStyle = styles[style]
+		gftUseStyle = gftStyles[style]
 	end
 
 	if style == "DEFICIT" then
-		gftDeficit = max - min
+		local gftDeficit = max - min
 		return ((gftDeficit > 0) and format(gftUseStyle, E:ShortValue(gftDeficit))) or ""
 	elseif style == "PERCENT" then
 		return format(gftUseStyle, min / max * 100)
 	elseif style == "CURRENT" or ((style == "CURRENT_MAX" or style == "CURRENT_MAX_PERCENT" or style == "CURRENT_PERCENT") and min == max) then
-		return format(styles.CURRENT, E:ShortValue(min))
+		return format(gftStyles.CURRENT, E:ShortValue(min))
 	elseif style == "CURRENT_MAX" then
 		return format(gftUseStyle,  E:ShortValue(min), E:ShortValue(max))
 	elseif style == "CURRENT_PERCENT" then
@@ -237,29 +225,15 @@ function E:GetFormattedText(style, min, max)
 	end
 end
 
-function E:AbbreviateString(string, allUpper)
-	local newString = ""
-	local words = {split(" ", string)}
-	for _, word in pairs(words) do
-		word = utf8sub(word, 1, 1)
-		if allUpper then
-			word = word:upper()
-		end
-		newString = newString .. word
-	end
-
-	return newString
-end
-
-function E:ShortenString(string, numChars, dots)
-	local bytes = string:len()
+function E:ShortenString(str, numChars, dots)
+	local bytes = #str
 	if bytes <= numChars then
-		return string
+		return str
 	else
 		local len, pos = 0, 1
 		while(pos <= bytes) do
 			len = len + 1
-			local c = string:byte(pos)
+			local c = str:byte(pos)
 			if c > 0 and c <= 127 then
 				pos = pos + 1
 			elseif c >= 192 and c <= 223 then
@@ -273,11 +247,22 @@ function E:ShortenString(string, numChars, dots)
 		end
 
 		if len == numChars and pos <= bytes then
-			return string:sub(1, pos - 1)..(dots and "..." or "")
+			return strsub(str, 1, pos - 1)..(dots and "..." or "")
 		else
-			return string
+			return str
 		end
 	end
+end
+
+function E:AbbreviateString(str, allUpper)
+	local newString = ""
+	for word in gmatch(str, "[^%s]+") do
+		word = utf8sub(word, 1, 1) --get only first letter of each word
+		if allUpper then word = strupper(word) end
+		newString = newString..word
+	end
+
+	return newString
 end
 
 local waitTable = {}
@@ -289,13 +274,12 @@ function E:Delay(delay, func, ...)
 	if waitFrame == nil then
 		waitFrame = CreateFrame("Frame","WaitFrame", E.UIParent)
 		waitFrame:SetScript("onUpdate",function (_, elapse)
-			local waitRecord, waitDelay, waitFunc, waitParams
 			local i, count = 1, #waitTable
 			while i <= count do
-				waitRecord = tremove(waitTable,i)
-				waitDelay = tremove(waitRecord,1)
-				waitFunc = tremove(waitRecord,1)
-				waitParams = tremove(waitRecord,1)
+				local waitRecord = tremove(waitTable,i)
+				local waitDelay = tremove(waitRecord,1)
+				local waitFunc = tremove(waitRecord,1)
+				local waitParams = tremove(waitRecord,1)
 				if waitDelay > elapse then
 					tinsert(waitTable,i,{waitDelay-elapse,waitFunc,waitParams})
 					i = i + 1
@@ -311,12 +295,12 @@ function E:Delay(delay, func, ...)
 end
 
 function E:StringTitle(str)
-	return str:gsub("(.)", upper, 1)
+	return gsub(str, "(.)", strupper, 1)
 end
 
 E.TimeThreshold = 3
 
-E.TimeColors = {
+E.TimeColors = { -- aura time colors for days, hours, minutes, seconds, fadetimer
 	[0] = "|cffeeeeee",
 	[1] = "|cffeeeeee",
 	[2] = "|cffeeeeee",
@@ -326,7 +310,7 @@ E.TimeColors = {
 	[6] = "|cff707070", --hhmm
 }
 
-E.TimeFormats = {
+E.TimeFormats = { -- short and long aura time formats
 	[0] = {"%dd", "%dd"},
 	[1] = {"%dh", "%dh"},
 	[2] = {"%dm", "%dm"},
@@ -374,9 +358,7 @@ function E:GetTimeInfo(s, threshhold, hhmm, mmss)
 	end
 end
 
-local COLOR_COPPER = "|cffeda55f"
-local COLOR_SILVER = "|cffc7c7cf"
-local COLOR_GOLD = "|cffffd700"
+local COLOR_COPPER, COLOR_SILVER, COLOR_GOLD = "|cffeda55f", "|cffc7c7cf", "|cffffd700"
 local ICON_COPPER = "|TInterface\\AddOns\\ElvUI\\media\\textures\\UI-CopperIcon:16:16|t"
 local ICON_SILVER = "|TInterface\\AddOns\\ElvUI\\media\\textures\\UI-SilverIcon:16:16|t"
 local ICON_GOLD = "|TInterface\\AddOns\\ElvUI\\media\\textures\\UI-GoldIcon:16:16|t"
@@ -386,22 +368,16 @@ function E:FormatMoney(amount, style, textonly)
 	local silvername = textonly and L.silverabbrev or ICON_SILVER
 	local goldname = textonly and L.goldabbrev or ICON_GOLD
 
-	local value = abs(amount)
-	local gold = floor(value / 10000)
-	local silver = floor(mod(value / 100, 100))
-	local copper = floor(mod(value, 100))
+	local val = abs(amount)
+	local gold = floor(val / 10000)
+	local silver = floor(mod(val / 100, 100))
+	local copper = floor(mod(val, 100))
 
 	if not style or style == "SMART" then
 		local str = ""
-		if gold > 0 then
-			str = format("%d%s%s", gold, goldname, (silver > 0 or copper > 0) and " " or "")
-		end
-		if silver > 0 then
-			str = format("%s%d%s%s", str, silver, silvername, copper > 0 and " " or "")
-		end
-		if copper > 0 or value == 0 then
-			str = format("%s%d%s", str, copper, coppername)
-		end
+		if gold > 0 then str = format("%d%s%s", gold, goldname, (silver > 0 or copper > 0) and " " or "") end
+		if silver > 0 then str = format("%s%d%s%s", str, silver, silvername, copper > 0 and " " or "") end
+		if copper > 0 or value == 0 then str = format("%s%d%s", str, copper, coppername) end
 		return str
 	end
 

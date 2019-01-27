@@ -1,5 +1,5 @@
 -- English localization file for enUS and enGB.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
+local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:NewLocale("ElvUI", "enUS", true, true)
 if not L then return end
 
@@ -820,6 +820,7 @@ L["Battlefield Frame"] = true
 L["BG Map"] = true
 L["BG Score"] = true
 L["Character Frame"] = true
+L["CheckBox Skin"] = true
 L["Debug Tools"] = true
 L["Dressing Room"] = true
 L["GM Chat"] = true
@@ -840,7 +841,6 @@ L["Mirror Timers"] = true
 L["Misc Frames"] = true
 L["Petition Frame"] = true
 L["Quest Frames"] = true
-L["Quest Timers"] = true
 L["Raid Frame"] = true
 L["Skins"] = true
 L["Spellbook"] = true
@@ -923,6 +923,7 @@ L["Blacklist"] = true
 L["Block Auras Without Duration"] = true
 L["Block Blacklisted Auras"] = true
 L["Block Mouseover Glow"] = true
+L["Block Non-Dispellable Auras"] = true
 L["Block Target Glow"] = true
 L["Borders"] = true
 L["Buff Indicator"] = true
@@ -985,7 +986,6 @@ L["Detached Width"] = true
 L["Direction the health bar moves when gaining/losing health."] = true
 L["Disable Debuff Highlight"] = true
 L["Disabled Blizzard Frames"] = true
-L["Disables the focus and target of focus unitframes."] = true
 L["Disables the player and pet unitframes."] = true
 L["Disables the target and target of target unitframes."] = true
 L["Disconnected"] = true
@@ -1000,6 +1000,7 @@ L["Display the castbar inside the information panel, the icon will be displayed 
 L["Display the target of your current cast. Useful for mouseover casts."] = true
 L["Display tick marks on the castbar for channelled spells. This will adjust automatically for spells like Drain Soul and add additional ticks based on haste."] = true
 L["Don't display any auras found on the 'Blacklist' filter."] = true
+L["Don't display auras that cannot be dispelled by your class."] = true
 L["Don't display auras that have no duration."] = true
 L["Don't display auras that are longer than this duration (in seconds). Set to zero to disable."] = true
 L["Don't display auras that are shorter than this duration (in seconds). Set to zero to disable."] = true

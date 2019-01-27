@@ -24,7 +24,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
 
 local LAB = LibStub("LibActionButton-1.0")
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = E.LSM
 local LBF = LibStub("LibButtonFacade", true)
 
 local UIHider
@@ -217,7 +217,9 @@ function AB:PositionAndSizeBar(barName)
 			self:PositionAndSizeBar(barName)
 			return
 		end
+		E:EnableMover(bar.mover:GetName())
 	else
+		E:DisableMover(bar.mover:GetName())
 		bar:Hide()
 		UnregisterStateDriver(bar, "visibility")
 	end
@@ -693,7 +695,9 @@ function AB:UpdateButtonConfig(bar, buttonName)
 		button:SetAttribute("checkselfcast", true)
 		button:SetAttribute("checkfocuscast", true)
 		if self.db.rightClickSelfCast then
-			bar:SetAttribute("unit-S"..(bar:GetAttribute("state-page") or 0).."Right", "player")
+			E:Delay(0.1, bar:SetAttribute("unit-S"..(bar:GetAttribute("state-page") or 0).."Right", "player"))
+		else
+			bar:SetAttribute("unit-S"..(bar:GetAttribute("state-page") or 0).."Right")
 		end
 
 		button:UpdateConfig(bar.buttonConfig)

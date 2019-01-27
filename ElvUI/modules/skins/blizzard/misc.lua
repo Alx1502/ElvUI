@@ -215,17 +215,30 @@ local function LoadSkin()
 	TicketStatusFrameButton.tex:SetTexCoord(unpack(E.TexCoords))
 	TicketStatusFrameButton.tex:SetInside()
 
+	-- Quest Timers
+	QuestTimerFrame:StripTextures()
+
+	QuestTimerHeader:Point("TOP", 0, 8)
+
 	-- Dropdown Menu
 	hooksecurefunc("UIDropDownMenu_Initialize", function()
 		for i = 1, UIDROPDOWNMENU_MAXLEVELS do
-			_G["DropDownList"..i.."Backdrop"]:SetTemplate("Transparent")
-			_G["DropDownList"..i.."MenuBackdrop"]:SetTemplate("Transparent")
+			local dropBackdrop = _G["DropDownList"..i.."Backdrop"]
+			local dropMenuBackdrop = _G["DropDownList"..i.."MenuBackdrop"]
+
+			dropBackdrop:SetTemplate("Transparent")
+			dropMenuBackdrop:SetTemplate("Transparent")
+
 			for j = 1, UIDROPDOWNMENU_MAXBUTTONS do
 				local button = _G["DropDownList"..i.."Button"..j]
-				button:SetFrameLevel(_G["DropDownList"..i.."Backdrop"]:GetFrameLevel() + 1)
-				button:SetFont(E.media.normFont, 12)
-				_G["DropDownList"..i.."Button"..j.."Highlight"]:SetTexture(1, 1, 1, 0.3)
-				S:HandleColorSwatch(_G["DropDownList"..i.."Button"..j.."ColorSwatch"], 14)
+				local highlight = _G["DropDownList"..i.."Button"..j.."Highlight"]
+				local normalText = _G["DropDownList"..i.."Button"..j.."NormalText"]
+				local colorSwatch = _G["DropDownList"..i.."Button"..j.."ColorSwatch"]
+
+				button:SetFrameLevel(dropBackdrop:GetFrameLevel() + 1)
+				highlight:SetTexture(1, 1, 1, 0.3)
+				normalText:SetFont(E.media.normFont, E.db.general.fontSize)
+				S:HandleColorSwatch(colorSwatch, 14)
 			end
 		end
 	end)

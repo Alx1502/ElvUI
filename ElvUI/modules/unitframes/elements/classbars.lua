@@ -47,11 +47,7 @@ function UF:Configure_ClassBar(frame)
 		bars:ClearAllPoints()
 		bars:Point("CENTER", frame.Health.backdrop, "TOP", 0, 0)
 
-		if frame.ClassBar == "DruidAltMana" then
-			CLASSBAR_WIDTH = CLASSBAR_WIDTH * 2/3
-		else
-			CLASSBAR_WIDTH = CLASSBAR_WIDTH * (frame.MAX_CLASS_BAR - 1) / frame.MAX_CLASS_BAR
-		end
+		CLASSBAR_WIDTH = CLASSBAR_WIDTH * 2/3
 
 		bars:SetParent(frame)
 		bars:SetFrameLevel(50) --RaisedElementParent uses 100, we want it lower than this
@@ -115,12 +111,10 @@ function UF:Configure_ClassBar(frame)
 	bars:Width(CLASSBAR_WIDTH)
 	bars:Height(frame.CLASSBAR_HEIGHT - ((frame.BORDER + frame.SPACING)*2))
 
-	if frame.ClassBar == "DruidAltMana" then
-		if frame.CLASSBAR_DETACHED and db.classbar.verticalOrientation then
-			bars:SetOrientation("VERTICAL")
-		else
-			bars:SetOrientation("HORIZONTAL")
-		end
+	if frame.CLASSBAR_DETACHED and db.classbar.verticalOrientation then
+		bars:SetOrientation("VERTICAL")
+	else
+		bars:SetOrientation("HORIZONTAL")
 	end
 
 	if frame.USE_CLASSBAR then
@@ -199,7 +193,7 @@ function UF:PostUpdateDruidAltMana(_, cur, max, event)
 	local db = frame.db
 
 	--if frame.USE_CLASSBAR and ((cur ~= max or (not db.classbar.autoHide)) and (event ~= "ElementDisable")) then
-	if frame.USE_CLASSBAR and ((cur ~= max or (not db.classbar.autoHide)) and (UnitPowerType("player") ~= 0)) then
+	if frame.USE_CLASSBAR and ((cur ~= max or (db.classbar and not db.classbar.autoHide)) and (UnitPowerType("player") ~= 0)) then
 		if db.classbar.additionalPowerText then
 			local powerValue = frame.Power.value
 			local powerValueText = powerValue:GetText()

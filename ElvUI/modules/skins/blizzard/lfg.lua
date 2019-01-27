@@ -30,23 +30,6 @@ local function LoadSkin()
 	LFMFrameGroupInviteButton:Point("BOTTOMRIGHT", -40, 85)
 	LFGFrameDoneButton:Point("BOTTOMRIGHT", -40, 85)
 
-	local lfgDropDowns = {
-		"TypeDropDown1",
-		"NameDropDown1",
-		"TypeDropDown2",
-		"NameDropDown2",
-		"TypeDropDown3",
-		"NameDropDown3"
-	}
-
-	for i = 1, 6 do
-		local ddown = _G["LFGFrame"..lfgDropDowns[i]]
-
-		if ddown then
-			S:HandleDropDownBox(ddown, 250)
-		end
-	end
-
 	for i = 1, 2 do
 		local tab = _G["LFGParentFrameTab"..i]
 
@@ -59,6 +42,27 @@ local function LoadSkin()
 		if child.GetPushedTexture and child:GetPushedTexture() and not child:GetName() then
 			S:HandleCloseButton(child)
 		end
+	end
+
+	for i = 1, 3 do
+		local dropdownType = _G["LFGFrameTypeDropDown"..i]
+		local dropdownName = _G["LFGFrameNameDropDown"..i]
+		local searchBg = _G["LFGSearchBg"..i]
+		local searchIcon = _G["LFGSearchIcon"..i]
+
+		S:HandleDropDownBox(dropdownType, 250)
+		S:HandleDropDownBox(dropdownName, 250)
+
+		S:HandleIcon(searchBg)
+		searchBg:SetTexCoord(0.14, 0.78, 0.1, 0.74)
+		searchBg:SetDrawLayer("ARTWORK")
+		searchBg:Size(47)
+		searchBg:ClearAllPoints()
+		searchBg:Point("LEFT", dropdownType, "RIGHT", 10, -10)
+
+		searchIcon:SetAllPoints(searchBg)
+		searchIcon:SetTexCoord(0.05, 0.77, 0.05, 0.68)
+		searchIcon:SetDrawLayer("ARTWORK")
 	end
 
 	S:HandleIcon(LookingForGroupIcon)

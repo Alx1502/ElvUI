@@ -284,8 +284,19 @@ lib.QuestItemStarterIDs = {
 	["35723"] = {QUEST = "11972"},	-- Item : Shards of Ahune - Quest: Shards of Ahune
 }
 
--- Keys that are quest items and they are not tagged as quest items.
-lib.QuestItemKeyIDs = {
+-- Items that are quest items and they are not tagged as quest items.
+lib.QuestItemIDs = {
+	-- Items
+	["5880"] = true,	-- Crate With Holes
+	["6464"] = true,	-- Wailing Essence
+	["8548"] = true,	-- Divino-matic Rod
+	["11148"] = true,	-- Samophlange Manual Page
+	["11522"] = true,	-- Silver Totem of Aquementas
+	["11568"] = true, 	-- Torwa's Pouch
+	["12884"] = true,	-- Arnak's Hoof
+	["14542"] = true,	-- Kravel's Crate
+
+	-- Keys
 	["2629"] = true,	-- Intrepid Strongbox Key
 	["2719"] = true,	-- Small Brass Key
 	["3467"] = true,	-- Dull Iron Key

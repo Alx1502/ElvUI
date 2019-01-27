@@ -202,6 +202,23 @@ local function LoadSkin()
 	CraftReagent7:Point("TOPLEFT", CraftReagent5, "BOTTOMLEFT", 0, -3)
 	CraftReagent8:Point("LEFT", CraftReagent7, "RIGHT", 3, 0)
 
+	CraftHighlight:StripTextures()
+
+	CraftHighlightFrame.Left = CraftHighlightFrame:CreateTexture(nil, "ARTWORK")
+	CraftHighlightFrame.Left:Size(152, 15)
+	CraftHighlightFrame.Left:SetPoint("LEFT", CraftHighlightFrame, "CENTER")
+	CraftHighlightFrame.Left:SetTexture(E.media.blankTex)
+
+	CraftHighlightFrame.Right = CraftHighlightFrame:CreateTexture(nil, "ARTWORK")
+	CraftHighlightFrame.Right:Size(152, 15)
+	CraftHighlightFrame.Right:SetPoint("RIGHT", CraftHighlightFrame, "CENTER")
+	CraftHighlightFrame.Right:SetTexture(E.media.blankTex)
+
+	hooksecurefunc(CraftHighlight, "SetVertexColor", function(_, r, g, b)
+		CraftHighlightFrame.Left:SetGradientAlpha("Horizontal", r, g, b, 0.35, r, g, b, 0)
+		CraftHighlightFrame.Right:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.35)
+	end)
+
 	hooksecurefunc("CraftFrame_SetSelection", function(id)
 		if CraftIcon:GetNormalTexture() then
 			CraftReagentLabel:SetAlpha(1)

@@ -1,5 +1,5 @@
 -- German localization file for deDE.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
+local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:NewLocale("ElvUI", "deDE")
 if not L then return end
 
@@ -783,7 +783,7 @@ L["Side Arrows"] = "Seitliche Pfeile"
 L["Style Filter"] = "Stil Filter"
 L["Tank"] = "Schutz"
 L["Target Indicator Color"] = "Ziel Indikator Farbe"
-L["Target/Low Health Indicator"] = "Ziel Indikator"
+L["Target/Low Health Indicator"] = "Ziel-/Geringer Leben Indikator"
 L["Target Scale"] = "Ziel Skalierung"
 L["Targeted Nameplate"] = "Ausgewählte Namensplaketten"
 L["Texture"] = "Textur"
@@ -837,6 +837,7 @@ L["Battlefield Frame"] = true
 L["BG Map"] = "Schlachtfeldkarte"
 L["BG Score"] = "Schlachtfeldpunkte"
 L["Character Frame"] = "Charakterfenster"
+L["CheckBox Skin"] = "Auswahlkästchen Skin"
 L["Debug Tools"] = "Debug Tools"
 L["Dressing Room"] = "Anprobe"
 L["GM Chat"] = true
@@ -857,7 +858,6 @@ L["Mirror Timers"] = "Spiegel Zeitgeber"
 L["Misc Frames"] = "Verschiedene Fenster"
 L["Petition Frame"] = "Abstimmungsfenster"
 L["Quest Frames"] = "Questfenster"
-L["Quest Timers"] = "Questzeit"
 L["Raid Frame"] = "Schlachtzugsfenster"
 L["Skins"] = "Skins"
 L["Spellbook"] = "Zauberbuch"
@@ -940,6 +940,7 @@ L["Blacklist"] = "Schwarze Liste"
 L["Block Auras Without Duration"] = "Blocke Auren ohne Laufzeit"
 L["Block Blacklisted Auras"] = "Blocke Auren der schwarzen Liste"
 L["Block Mouseover Glow"] = "Blocke Mousover Leuchten"
+L["Block Non-Dispellable Auras"] = "Blocke Nicht-Bannbare Auren"
 L["Block Target Glow"] = "Blocke Ziel Leuchten"
 L["Borders"] = "Umrandungen"
 L["Buff Indicator"] = "Buff Indikator"
@@ -1002,7 +1003,6 @@ L["Detached Width"] = "Freistehendes Breite"
 L["Direction the health bar moves when gaining/losing health."] = "Richtung, in die sich die Lebensleiste aufbaut, wenn man Leben gewinnt/verliert."
 L["Disable Debuff Highlight"] = "Deaktiviere Schwächungszauber-Hervorhebung"
 L["Disabled Blizzard Frames"] = "Deaktivierte Blizzard-Fenster"
-L["Disables the focus and target of focus unitframes."] = "Deaktiviert das Fokus- und Fokus-Ziel-Einheitenfenster."
 L["Disables the player and pet unitframes."] = "Deaktiviert das Spieler- und Begleiter-Einheitenfenster."
 L["Disables the target and target of target unitframes."] = "Deaktiviert das Ziel- und Ziel-des-Ziels-Einheitenfenster."
 L["Disconnected"] = "Getrennt"
@@ -1017,6 +1017,7 @@ L["Display the castbar inside the information panel, the icon will be displayed 
 L["Display the target of your current cast. Useful for mouseover casts."] = "Zeige das Ziel deines derzeitigen Zaubers, für Mouseover-Zauber nützlich"
 L["Display tick marks on the castbar for channelled spells. This will adjust automatically for spells like Drain Soul and add additional ticks based on haste."] = "Anzeige der Zauberbalken-Ticks für kanalisierte Zauber. Dies ändert sich automatisch für Zauber wie Seelendieb, wenn zusätzliche Ticks durch einen hohen Tempowert entstehen."
 L["Don't display any auras found on the 'Blacklist' filter."] = "Zeige keinerlei Auren, die sich im 'Schwarzen Liste'-Filter befinden."
+L["Don't display auras that cannot be dispelled by your class."] = true
 L["Don't display auras that have no duration."] = "Zeige keine Auren, die keine Laufzeit haben."
 L["Don't display auras that are longer than this duration (in seconds). Set to zero to disable."] = "Keine Auren anzeigen die länger als diese Dauer (in Sekunden) sind"
 L["Don't display auras that are shorter than this duration (in seconds). Set to zero to disable."] = "Zeige keine Auren die kürzer als die Dauer (in Sekunden) sind. Auf 0 stellen um zu deaktivieren."

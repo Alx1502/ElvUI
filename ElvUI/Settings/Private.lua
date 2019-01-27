@@ -51,6 +51,7 @@ V["skins"] = {
 	["ace3"] = {
 		["enable"] = true,
 	},
+	["checkBoxSkin"] = true,
 	["blizzard"] = {
 		["enable"] = true,
 		["alertframes"] = true,
@@ -115,7 +116,6 @@ V["unitframe"] = {
 	["disabledBlizzardFrames"] = {
 		["player"] = true,
 		["target"] = true,
-		["focus"] = true,
 		["party"] = true
 	}
 }

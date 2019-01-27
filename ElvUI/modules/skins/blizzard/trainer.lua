@@ -73,13 +73,30 @@ local function LoadSkin()
 	ClassTrainerSkillIcon:Size(47)
 	ClassTrainerSkillIcon:Point("TOPLEFT", 2, 0)
 
+	ClassTrainerSkillHighlight:StripTextures()
+
+	ClassTrainerSkillHighlightFrame.Left = ClassTrainerSkillHighlightFrame:CreateTexture(nil, "ARTWORK")
+	ClassTrainerSkillHighlightFrame.Left:Size(152, 15)
+	ClassTrainerSkillHighlightFrame.Left:SetPoint("LEFT", ClassTrainerSkillHighlightFrame, "CENTER")
+	ClassTrainerSkillHighlightFrame.Left:SetTexture(E.media.blankTex)
+
+	ClassTrainerSkillHighlightFrame.Right = ClassTrainerSkillHighlightFrame:CreateTexture(nil, "ARTWORK")
+	ClassTrainerSkillHighlightFrame.Right:Size(152, 15)
+	ClassTrainerSkillHighlightFrame.Right:SetPoint("RIGHT", ClassTrainerSkillHighlightFrame, "CENTER")
+	ClassTrainerSkillHighlightFrame.Right:SetTexture(E.media.blankTex)
+
+	hooksecurefunc(ClassTrainerSkillHighlight, "SetVertexColor", function(_, r, g, b)
+		ClassTrainerSkillHighlightFrame.Left:SetGradientAlpha("Horizontal", r, g, b, 0.35, r, g, b, 0)
+		ClassTrainerSkillHighlightFrame.Right:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.35)
+	end)
+
 	hooksecurefunc("ClassTrainer_SetSelection", function()
 		local skillIcon = ClassTrainerSkillIcon:GetNormalTexture()
 
 		if skillIcon and not skillIcon.isSkinned then
 			skillIcon:SetInside()
 			skillIcon:SetTexCoord(unpack(E.TexCoords))
-			
+
 			skillIcon.isSkinned = true
 		end
 	end)

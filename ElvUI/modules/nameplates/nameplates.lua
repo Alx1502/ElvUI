@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local mod = E:NewModule("NamePlates", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = E.LSM
 local LAI = LibStub("LibAuraInfo-1.0-ElvUI", true)
 local CC = E:GetModule("ClassCache")
 
@@ -537,8 +537,9 @@ function mod:OnCreated(frame)
 
 	frame.UnitFrame = CreateFrame("Frame", format("ElvUI_NamePlate%d", plateID), frame)
 	frame.UnitFrame:SetAllPoints(frame)
-	frame.UnitFrame:SetScript("OnEvent", self.OnEvent)
 	frame.UnitFrame.plateID = plateID
+
+	frame.UnitFrame:SetScript("OnEvent", self.OnEvent)
 
 	frame.UnitFrame.HealthBar = self:ConstructElement_HealthBar(frame.UnitFrame)
 	frame.UnitFrame.CutawayHealth = self:ConstructElement_CutawayHealth(frame.UnitFrame)
@@ -648,7 +649,7 @@ function mod:OnUpdate()
 	end
 
 	for frame in pairs(mod.VisiblePlates) do
-		if mod.hasTarget then 
+		if mod.hasTarget then
 			frame.alpha = frame:GetParent():GetAlpha()
 		else
 			frame.alpha = 1

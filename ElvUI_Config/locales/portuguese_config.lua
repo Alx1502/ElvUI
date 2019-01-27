@@ -1,5 +1,5 @@
 -- Portuguese localization file for ptBR.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
+local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:NewLocale("ElvUI", "ptBR")
 if not L then return end
 
@@ -836,6 +836,7 @@ L["Battlefield Frame"] = true
 L["BG Map"] = "Mapa do CB"
 L["BG Score"] = "Placar do CB"
 L["Character Frame"] = "Personagem"
+L["CheckBox Skin"] = true
 L["Debug Tools"] = "Ferramentas de Depuração"
 L["Dressing Room"] = "Provador"
 L["GM Chat"] = true
@@ -856,7 +857,6 @@ L["Mirror Timers"] = true
 L["Misc Frames"] = "Diversos"
 L["Petition Frame"] = "Petição"
 L["Quest Frames"] = "Missões"
-L["Quest Timers"] = "Tempo restante"
 L["Raid Frame"] = "Quadro de Raide"
 L["Skins"] = "Aparências"
 L["Spellbook"] = "Grimório"
@@ -939,6 +939,7 @@ L["Blacklist"] = "Lista negra"
 L["Block Auras Without Duration"] = "Bloquear Auras sem Duração"
 L["Block Blacklisted Auras"] = "Bloquear Auras da Lista Negra"
 L["Block Mouseover Glow"] = true
+L["Block Non-Dispellable Auras"] = "Bloquear Auras não Dissipáveis"
 L["Block Target Glow"] = true
 L["Borders"] = "Bordas"
 L["Buff Indicator"] = "Indicador de Bônus"
@@ -1001,7 +1002,6 @@ L["Detached Width"] = "Largura quando Destacado"
 L["Direction the health bar moves when gaining/losing health."] = "Direção em que a barra da vida se move quando se ganha/perde vida."
 L["Disable Debuff Highlight"] = true
 L["Disabled Blizzard Frames"] = true
-L["Disables the focus and target of focus unitframes."] = true
 L["Disables the player and pet unitframes."] = true
 L["Disables the target and target of target unitframes."] = true
 L["Disconnected"] = "Desconectado"
@@ -1016,6 +1016,7 @@ L["Display the castbar inside the information panel, the icon will be displayed 
 L["Display the target of your current cast. Useful for mouseover casts."] = "Mostra os alvos do seu lançamento atual. Útil para lançamentos mouseover."
 L["Display tick marks on the castbar for channelled spells. This will adjust automatically for spells like Drain Soul and add additional ticks based on haste."] = "Exibir marcas na barra de lançamento para feitiços canalizados. Isto irá se ajustar automaticamente para feitiços como Drenar Alma e adicionará ticks baseado na Aceleração."
 L["Don't display any auras found on the 'Blacklist' filter."] = "Não mostra nenhuma aura encontrada no filtro 'Lista Negra'."
+L["Don't display auras that cannot be dispelled by your class."] = true
 L["Don't display auras that have no duration."] = "Não mostra auras sem duração."
 L["Don't display auras that are longer than this duration (in seconds). Set to zero to disable."] = true
 L["Don't display auras that are shorter than this duration (in seconds). Set to zero to disable."] = true

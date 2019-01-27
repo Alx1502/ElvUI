@@ -214,6 +214,23 @@ local function LoadSkin()
 
 	S:HandleCloseButton(TradeSkillFrameCloseButton, TradeSkillFrame.backdrop)
 
+	TradeSkillHighlight:StripTextures()
+
+	TradeSkillHighlightFrame.Left = TradeSkillHighlightFrame:CreateTexture(nil, "ARTWORK")
+	TradeSkillHighlightFrame.Left:Size(152, 15)
+	TradeSkillHighlightFrame.Left:SetPoint("LEFT", TradeSkillHighlightFrame, "CENTER")
+	TradeSkillHighlightFrame.Left:SetTexture(E.media.blankTex)
+
+	TradeSkillHighlightFrame.Right = TradeSkillHighlightFrame:CreateTexture(nil, "ARTWORK")
+	TradeSkillHighlightFrame.Right:Size(152, 15)
+	TradeSkillHighlightFrame.Right:SetPoint("RIGHT", TradeSkillHighlightFrame, "CENTER")
+	TradeSkillHighlightFrame.Right:SetTexture(E.media.blankTex)
+
+	hooksecurefunc(TradeSkillHighlight, "SetVertexColor", function(_, r, g, b)
+		TradeSkillHighlightFrame.Left:SetGradientAlpha("Horizontal", r, g, b, 0.35, r, g, b, 0)
+		TradeSkillHighlightFrame.Right:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.35)
+	end)
+
 	hooksecurefunc("TradeSkillFrame_SetSelection", function(id)
 		if TradeSkillSkillIcon:GetNormalTexture() then
 			TradeSkillReagentLabel:SetAlpha(1)

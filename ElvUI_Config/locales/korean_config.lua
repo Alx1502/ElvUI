@@ -1,5 +1,5 @@
 -- Korean localization file for koKR.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
+local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:NewLocale("ElvUI", "koKR")
 if not L then return end
 
@@ -554,7 +554,7 @@ L["Change Language"] = true
 L["Change the ElvUI option to a different language."] = true
 L["Chat Bubbles Style"] = "말풍선 디자인"
 L["Chat Bubbles"] = "말풍선"
-L["Chat Bubble Names"] = "말풍성에 이름 표시"
+L["Chat Bubble Names"] = "말풍선에 이름 표시"
 L["Chat Output"] = true
 L["Controls the amount of decimals used in values displayed on elements like NamePlates and UnitFrames."] = "이름표와 유닛프레임 등에 구성요소로 표시되는 수치들이 소숫점 몇 자리까지 나타낼지 조정합니다."
 L["Crop Icons"] = true
@@ -885,6 +885,7 @@ L["Battlefield Frame"] = true
 L["BG Map"] = "전장 맵"
 L["BG Score"] = "전장 점수판"
 L["Character Frame"] = "캐릭터 창"
+L["CheckBox Skin"] = true
 L["Debug Tools"] = "오류 확인 창"
 L["Dressing Room"] = "미리보기"
 L["GM Chat"] = true
@@ -905,7 +906,6 @@ L["Mirror Timers"] = true
 L["Misc Frames"] = "기타 프레임"
 L["Petition Frame"] = "GM 요청 창"
 L["Quest Frames"] = "퀘스트 창"
-L["Quest Timers"] = "퀘스트 시간 제한"
 L["Raid Frame"] = "공격대 프레임"
 L["Skins"] = "스킨"
 L["Spellbook"] = "마법책"
@@ -988,6 +988,7 @@ L["Blacklist"] = "블랙리스트"
 L["Block Auras Without Duration"] = "지속시간이 없으면 제외"
 L["Block Blacklisted Auras"] = "차단목록에 있는건 제외"
 L["Block Mouseover Glow"] = true
+L["Block Non-Dispellable Auras"] = "해제할 수 없으면 제외"
 L["Block Target Glow"] = true
 L["Borders"] = "테두리"
 L["Buff Indicator"] = "강화효과 알람"
@@ -1050,7 +1051,6 @@ L["Detached Width"] = "분리했을 때 가로길이"
 L["Direction the health bar moves when gaining/losing health."] = "생명력의 증감 방향을 결정합니다. (가로/세로)"
 L["Disable Debuff Highlight"] = "약화효과 강조 비활성화"
 L["Disabled Blizzard Frames"] = "비활성화된 블리자드 프레임"
-L["Disables the focus and target of focus unitframes."] = "주시대상, 주시대상의 대상 프레임 비활성화"
 L["Disables the player and pet unitframes."] = "플레이어, 소환수 프레임 비활성화"
 L["Disables the target and target of target unitframes."] = "대상, 대상의 대상 프레임 비활성"
 L["Disconnected"] = "오프라인"
@@ -1065,6 +1065,7 @@ L["Display the castbar inside the information panel, the icon will be displayed 
 L["Display the target of your current cast. Useful for mouseover casts."] = "현재 캐스팅중인 기술의 목표를 기술명에 표기합니다. 마우스오버로 기술을 시전할 때 대상을 파악하기 좋습니다."
 L["Display tick marks on the castbar for channelled spells. This will adjust automatically for spells like Drain Soul and add additional ticks based on haste."] = "시전바에 시전되는 주문의 틱을 표시합니다. 영혼 흡수나 가속이 추가되는 주문에 따라 틱이 자동 조절됩니다."
 L["Don't display any auras found on the 'Blacklist' filter."] = "차단 목록에 등록되어 있는 효과들을 표시하지 않게 합니다."
+L["Don't display auras that cannot be dispelled by your class."] = true
 L["Don't display auras that have no duration."] = "지속시간이 무한인 효과들을 표시하지 않게 합니다.|n|n즉, 유효시간이 있는 효과들만 보이게 됩니다."
 L["Don't display auras that are longer than this duration (in seconds). Set to zero to disable."] = "이 값보다 긴 시간(초단위)의 효과들을 표시하지 않습니다.|n|n0으로 설정하면 이 기능을 사용하지 않습니다."
 L["Don't display auras that are shorter than this duration (in seconds). Set to zero to disable."] = "이 값보다 짧은 시간(초단위)의 효과들을 표시하지 않습니다.|n|n0으로 설정하면 이 기능을 사용하지 않습니다."

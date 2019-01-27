@@ -24,6 +24,14 @@ E.Options.args.skins = {
 			get = function(info) return E.private.skins.ace3.enable end,
 			set = function(info, value) E.private.skins.ace3.enable = value E:StaticPopup_Show("PRIVATE_RL") end,
 		},
+		checkBoxSkin = {
+			order = 4,
+			type = "toggle",
+			name = L["CheckBox Skin"],
+			get = function(info) return E.private.skins.checkBoxSkin end,
+			set = function(info, value) E.private.skins.checkBoxSkin = value E:StaticPopup_Show("PRIVATE_RL") end,
+			disabled = function() return not E.private.skins.ace3.enable end
+		},
 		blizzard = {
 			order = 100,
 			type = "group",
@@ -189,11 +197,6 @@ E.Options.args.skins = {
 				quest = {
 					type = "toggle",
 					name = L["Quest Frames"],
-					desc = L["TOGGLESKIN_DESC"]
-				},
-				questtimer = {
-					type = "toggle",
-					name = L["Quest Timers"],
 					desc = L["TOGGLESKIN_DESC"]
 				},
 				raid = {

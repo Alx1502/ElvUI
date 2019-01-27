@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI)
 local UF = E:NewModule("UnitFrames", "AceTimer-3.0", "AceEvent-3.0", "AceHook-3.0")
-local LSM = LibStub("LibSharedMedia-3.0")
-UF.LSM = LSM
+local LSM = E.LSM
+UF.LSM = E.LSM
 
 --Cache global variables
 --Lua functions
@@ -612,11 +612,9 @@ function UF.headerPrototype:Reset()
 	self:Hide()
 
 	self:SetAttribute("showPlayer", true)
-
 	self:SetAttribute("showSolo", true)
 	self:SetAttribute("showParty", true)
 	self:SetAttribute("showRaid", true)
-
 	self:SetAttribute("columnSpacing", nil)
 	self:SetAttribute("columnAnchorPoint", nil)
 	self:SetAttribute("groupBy", nil)
@@ -750,7 +748,7 @@ function UF:CreateAndUpdateHeaderGroup(group, groupFilter, template, headerUpdat
 		self[group].db = db
 
 		if not UF.headerFunctions[group] then UF.headerFunctions[group] = {} end
-			UF.headerFunctions[group].Update = function()
+		UF.headerFunctions[group].Update = function()
 			local db = UF.db.units[group]
 			if db.enable ~= true then
 				UnregisterStateDriver(UF[group], "visibility")
@@ -937,9 +935,6 @@ function ElvUF:DisableBlizzard(unit)
 	elseif (unit == "target") and E.private.unitframe.disabledBlizzardFrames.target then
 		HandleFrame(TargetFrame)
 		HandleFrame(ComboFrame)
---	elseif(unit == "focus") and E.private.unitframe.disabledBlizzardFrames.focus then
---		HandleFrame(FocusFrame)
---		HandleFrame(FocusFrameToT)
 	elseif (unit == "targettarget") and E.private.unitframe.disabledBlizzardFrames.target then
 		HandleFrame(TargetofTargetFrame)
 	elseif (unit:match"(party)%d?$" == "party") and E.private.unitframe.disabledBlizzardFrames.party then
@@ -996,8 +991,6 @@ end
 
 local ignoreSettings = {
 	["position"] = true,
-	["playerOnly"] = true,
-	["noConsolidated"] = true,
 	["useBlacklist"] = true,
 	["useWhitelist"] = true,
 	["noDuration"] = true,
@@ -1163,10 +1156,6 @@ function UF:Initialize()
 		end
 	end
 
-	if E.private.unitframe.disabledBlizzardFrames.focus and E.private.unitframe.disabledBlizzardFrames.party then
-		InterfaceOptionsFrameCategoriesButton10:SetScale(0.0001)
-	end
-
 	if E.private.unitframe.disabledBlizzardFrames.player then
 		InterfaceOptionsStatusTextPanelPlayer:SetScale(0.0001)
 		InterfaceOptionsStatusTextPanelPlayer:SetAlpha(0)
@@ -1189,6 +1178,7 @@ function UF:Initialize()
 		InterfaceOptionsStatusTextPanelParty:SetScale(0.0001)
 		InterfaceOptionsStatusTextPanelParty:SetAlpha(0)
 --		InterfaceOptionsFrameCategoriesButton9:SetScale(0.0001)
+		InterfaceOptionsFrameCategoriesButton10:SetScale(0.0001)
 	end
 
 	local ORD = ns.oUF_RaidDebuffs or oUF_RaidDebuffs

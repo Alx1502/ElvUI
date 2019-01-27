@@ -244,8 +244,19 @@ local function GetOptionsTable_AuraBars(friendlyOnly, updateFunc, groupName)
 			name = L["Block Auras Without Duration"],
 			desc = L["Don't display auras that have no duration."]
 		}
-		config.args.filters.args.useFilter = {
+		config.args.filters.args.onlyDispellable = {
+			order = 13,
+			type = "toggle",
+			name = L["Block Non-Dispellable Auras"],
+			desc = L["Don't display auras that cannot be dispelled by your class."]
+		}
+		config.args.filters.args.spacer = {
 			order = 14,
+			type = "description",
+			name = ""
+		}
+		config.args.filters.args.useFilter = {
+			order = 15,
 			type = "select",
 			name = L["Additional Filter"],
 			desc = L["Select an additional filter to use. If the selected filter is a whitelist and no other filters are being used (with the exception of Block Non-Personal Auras) then it will block anything not on the whitelist, otherwise it will simply add auras on the whitelist in addition to any other filter settings."],
@@ -331,8 +342,24 @@ local function GetOptionsTable_AuraBars(friendlyOnly, updateFunc, groupName)
 				}
 			}
 		}
-		config.args.filters.args.useFilter = {
+		config.args.filters.args.onlyDispellable = {
 			order = 14,
+			type = "group",
+			guiInline = true,
+			name = L["Block Non-Dispellable Auras"],
+			args = {
+				friendly = {
+					order = 1,
+					type = "toggle",
+					name = L["Friendly"],
+					desc = L["If the unit is friendly to you."].." "..L["Don't display auras that cannot be dispelled by your class."],
+					get = function(info) return E.db.unitframe.units[groupName].aurabar.onlyDispellable.friendly end,
+					set = function(info, value) E.db.unitframe.units[groupName].aurabar.onlyDispellable.friendly = value updateFunc(UF, groupName) end
+				}
+			}
+		}
+		config.args.filters.args.useFilter = {
+			order = 15,
 			type = "select",
 			name = L["Additional Filter"],
 			desc = L["Select an additional filter to use. If the selected filter is a whitelist and no other filters are being used (with the exception of Block Non-Personal Auras) then it will block anything not on the whitelist, otherwise it will simply add auras on the whitelist in addition to any other filter settings."],
@@ -531,9 +558,22 @@ local function GetOptionsTable_Auras(friendlyUnitOnly, auraType, isGroupFrame, u
 			name = L["Block Auras Without Duration"],
 			desc = L["Don't display auras that have no duration."]
 		}
+		if auraType == "debuffs" then
+			config.args.filters.args.onlyDispellable = {
+				order = 18,
+				type = "toggle",
+				name = L["Block Non-Dispellable Auras"],
+				desc = L["Don't display auras that cannot be dispelled by your class."]
+			}
+			config.args.filters.args.spacer = {
+				order = 19,
+				type = "description",
+				name = ""
+			}
+		end
 
 		config.args.filters.args.useFilter = {
-			order = 18,
+			order = 20,
 			type = "select",
 			name = L["Additional Filter"],
 			desc = L["Select an additional filter to use. If the selected filter is a whitelist and no other filters are being used (with the exception of Block Non-Personal Auras) then it will block anything not on the whitelist, otherwise it will simply add auras on the whitelist in addition to any other filter settings."],
@@ -619,8 +659,26 @@ local function GetOptionsTable_Auras(friendlyUnitOnly, auraType, isGroupFrame, u
 				}
 			}
 		}
+		if auraType == "debuffs" then
+			config.args.filters.args.onlyDispellable = {
+				order = 18,
+				type = "group",
+				guiInline = true,
+				name = L["Block Non-Dispellable Auras"],
+				args = {
+					friendly = {
+						order = 1,
+						type = "toggle",
+						name = L["Friendly"],
+						desc = L["If the unit is friendly to you."].." "..L["Don't display auras that cannot be dispelled by your class."],
+						get = function(info) return E.db.unitframe.units[groupName][auraType].onlyDispellable.friendly end,
+						set = function(info, value) E.db.unitframe.units[groupName][auraType].onlyDispellable.friendly = value updateFunc(UF, groupName, numUnits) end
+					}
+				}
+			}
+		end
 		config.args.filters.args.useFilter = {
-			order = 18,
+			order = 19,
 			type = "select",
 			name = L["Additional Filter"],
 			desc = L["Select an additional filter to use. If the selected filter is a whitelist and no other filters are being used (with the exception of Block Non-Personal Auras) then it will block anything not on the whitelist, otherwise it will simply add auras on the whitelist in addition to any other filter settings."],
@@ -636,14 +694,14 @@ local function GetOptionsTable_Auras(friendlyUnitOnly, auraType, isGroupFrame, u
 	end
 
 	config.args.filters.args.minDuration = {
-		order = 19,
+		order = 21,
 		type = "range",
 		name = L["Minimum Duration"],
 		desc = L["Don't display auras that are shorter than this duration (in seconds). Set to zero to disable."],
 		min = 0, max = 10800, step = 1,
 	}
 	config.args.filters.args.maxDuration = {
-		order = 20,
+		order = 22,
 		type = "range",
 		name = L["Maximum Duration"],
 		desc = L["Don't display auras that are longer than this duration (in seconds). Set to zero to disable."],
@@ -2986,14 +3044,8 @@ E.Options.args.unitframe = {
 							name = L["Target Frame"],
 							desc = L["Disables the target and target of target unitframes."]
 						},
-						focus = {
-							order = 4,
-							type = "toggle",
-							name = L["Focus Frame"],
-							desc = L["Disables the focus and target of focus unitframes."]
-						},
 						party = {
-							order = 6,
+							order = 4,
 							type = "toggle",
 							name = L["Party Frames"]
 						}

@@ -1,5 +1,5 @@
 -- Taiwanese localization file for zhTW.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
+local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:NewLocale("ElvUI", "zhTW")
 if not L then return end
 
@@ -836,6 +836,7 @@ L["Battlefield Frame"] = true
 L["BG Map"] = "戰場地圖"
 L["BG Score"] = "戰場積分"
 L["Character Frame"] = "角色"
+L["CheckBox Skin"] = true
 L["Debug Tools"] = "除錯工具"
 L["Dressing Room"] = "試衣間"
 L["GM Chat"] = true
@@ -856,7 +857,6 @@ L["Mirror Timers"] = true
 L["Misc Frames"] = "其他"
 L["Petition Frame"] = "回報GM"
 L["Quest Frames"] = "任務"
-L["Quest Timers"] = "任務計時"
 L["Raid Frame"] = "團隊框架"
 L["Skins"] = "美化外觀"
 L["Spellbook"] = "法術書"
@@ -939,6 +939,7 @@ L["Blacklist"] = "黑名單"
 L["Block Auras Without Duration"] = "不顯示沒有持續時間的光環"
 L["Block Blacklisted Auras"] = "不顯示黑名單中的光環"
 L["Block Mouseover Glow"] = true
+L["Block Non-Dispellable Auras"] = "顯示可以驅散的光環"
 L["Block Target Glow"] = true
 L["Borders"] = "邊框"
 L["Buff Indicator"] = "Buff 提示器"
@@ -1001,7 +1002,6 @@ L["Detached Width"] = "分離寬度"
 L["Direction the health bar moves when gaining/losing health."] = "生命條的增減方向."
 L["Disable Debuff Highlight"] = "禁用debuff高亮"
 L["Disabled Blizzard Frames"] = "禁用暴雪框架"
-L["Disables the focus and target of focus unitframes."] = "禁用焦點和目標的焦點框架"
 L["Disables the player and pet unitframes."] = "禁用玩家和寵物框架"
 L["Disables the target and target of target unitframes."] = "禁用目標和目標的目標框架"
 L["Disconnected"] = "離線"
@@ -1016,6 +1016,7 @@ L["Display the castbar inside the information panel, the icon will be displayed 
 L["Display the target of your current cast. Useful for mouseover casts."] = "顯示你當前的施法目標. 可以轉換成鼠标滑過類型."
 L["Display tick marks on the castbar for channelled spells. This will adjust automatically for spells like Drain Soul and add additional ticks based on haste."] = "若為需引導的法術, 在施法條上顯示每跳週期傷害. 啟動此功能後, 針對吸取靈魂這類的法術, 將自動調整顯示每跳週期傷害, 並視加速等級增加額外的周期傷害."
 L["Don't display any auras found on the 'Blacklist' filter."] = "不顯示任何'黑名單'過濾器中的光環."
+L["Don't display auras that cannot be dispelled by your class."] = true
 L["Don't display auras that have no duration."] = "不限時沒有持續時間的光環."
 L["Don't display auras that are longer than this duration (in seconds). Set to zero to disable."] = "不顯示高於此時間(單位:秒)的光環.設置為0以禁用"
 L["Don't display auras that are shorter than this duration (in seconds). Set to zero to disable."] = true

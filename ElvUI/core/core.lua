@@ -527,12 +527,10 @@ end
 function E:CheckIncompatible()
 	if E.global.ignoreIncompatible then return end
 
---[[
 	if IsAddOnLoaded("SnowfallKeyPress") and E.private.actionbar.enable then
 		E.private.actionbar.keyDown = true
 		E:IncompatibleAddOn("SnowfallKeyPress", "ActionBar")
 	end
-]]
 
 	if IsAddOnLoaded("Chatter") and E.private.chat.enable then
 		E:IncompatibleAddOn("Chatter", "Chat")
@@ -1212,17 +1210,19 @@ function E:GetTopCPUFunc(msg)
 	self:Print("Calculating CPU Usage differences (module: "..(checkCore or module)..", showall: "..tostring(showall)..", minCalls: "..tostring(minCalls)..", delay: "..tostring(delay)..")")
 end
 
-function E:Initialize()
+function E:Initialize(loginFrame)
 	twipe(self.db)
 	twipe(self.global)
 	twipe(self.private)
 
+	local AceDB = LibStub("AceDB-3.0")
+
 	self.myguid = UnitGUID("player")
-	self.data = LibStub("AceDB-3.0"):New("ElvDB", self.DF)
+	self.data = AceDB:New("ElvDB", self.DF)
 	self.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
 	self.data.RegisterCallback(self, "OnProfileCopied", "UpdateAll")
 	self.data.RegisterCallback(self, "OnProfileReset", "OnProfileReset")
-	self.charSettings = LibStub("AceDB-3.0"):New("ElvPrivateDB", self.privateVars)
+	self.charSettings = AceDB:New("ElvPrivateDB", self.privateVars)
 	self.private = self.charSettings.profile
 	self.db = self.data.profile
 	self.global = self.data.global
@@ -1230,7 +1230,8 @@ function E:Initialize()
 	self:DBConversions()
 
 	self:ScheduleTimer("CheckRole", 0.01)
-	self:UIScale("PLAYER_LOGIN")
+
+	self:UIScale("PLAYER_LOGIN", loginFrame)
 
 	if not E.db.general.cropIcon then
 		E.TexCoords = {0, 1, 0, 1}

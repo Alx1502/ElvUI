@@ -1,5 +1,5 @@
 -- Russian localization file for ruRU.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
+local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:NewLocale("ElvUI", "ruRU")
 if not L then return end
 
@@ -836,6 +836,7 @@ L["Battlefield Frame"] = true
 L["BG Map"] = "Карта ПБ"
 L["BG Score"] = "Таблица ПБ"
 L["Character Frame"] = "Окно персонажа"
+L["CheckBox Skin"] = true
 L["Debug Tools"] = "Инструменты отладки"
 L["Dressing Room"] = "Примерочная"
 L["GM Chat"] = "ГМ чат"
@@ -856,7 +857,6 @@ L["Mirror Timers"] = "Таймеры"
 L["Misc Frames"] = "Прочие фреймы"
 L["Petition Frame"] = "Хартия гильдии"
 L["Quest Frames"] = "Задания"
-L["Quest Timers"] = "Время на задание"
 L["Raid Frame"] = "Рейд"
 L["Skins"] = "Скины"
 L["Spellbook"] = "Способности"
@@ -939,6 +939,7 @@ L["Blacklist"] = "Черный список"
 L["Block Auras Without Duration"] = "Блокировать ауры без длительности"
 L["Block Blacklisted Auras"] = "Блокировать ауры из черного списка"
 L["Block Mouseover Glow"] = "Блокировать подсветку наведения."
+L["Block Non-Dispellable Auras"] = "Блокировать не развеиваемые ауры"
 L["Block Target Glow"] = "Блокировать подсветку цели."
 L["Borders"] = "Границы"
 L["Buff Indicator"] = "Индикатор баффов"
@@ -1001,7 +1002,6 @@ L["Detached Width"] = "Ширина при откреплении"
 L["Direction the health bar moves when gaining/losing health."] = "Направление, в котором заполняется полоса при потере/восполнении здоровья."
 L["Disable Debuff Highlight"] = "Отключить подсветку дебаффов"
 L["Disabled Blizzard Frames"] = "Отключить фреймы Blizzard"
-L["Disables the focus and target of focus unitframes."] = "Отключает фреймы фокуса и цели фокуса."
 L["Disables the player and pet unitframes."] = "Отключает фреймы игрока и питомца."
 L["Disables the target and target of target unitframes."] = "Отключает фреймы цели и цели цели."
 L["Disconnected"] = "Не в сети"
@@ -1016,6 +1016,7 @@ L["Display the castbar inside the information panel, the icon will be displayed 
 L["Display the target of your current cast. Useful for mouseover casts."] = "Отображать имя цели заклинания на полосе."
 L["Display tick marks on the castbar for channelled spells. This will adjust automatically for spells like Drain Soul and add additional ticks based on haste."] = "Отображать метки тиков на полосе заклинаний для поддерживаемых заклинаний. Они будут автоматически масштабироваться для заклинаний вроде Похищения души и добавлять новые тики, основываясь на показателе скорости."
 L["Don't display any auras found on the 'Blacklist' filter."] = "Не отображать ауры, обнаруженные в фильтре 'Blacklist'."
+L["Don't display auras that cannot be dispelled by your class."] = true
 L["Don't display auras that have no duration."] = "Не отображать ауры без длительности"
 L["Don't display auras that are longer than this duration (in seconds). Set to zero to disable."] = "Не отображать ауры длительностью более этого значения (в секундах). Установите на 0 для отключения."
 L["Don't display auras that are shorter than this duration (in seconds). Set to zero to disable."] = "Не отображать ауры длительностью менее этого значения (в секундах). Установите на 0 для отключения."
